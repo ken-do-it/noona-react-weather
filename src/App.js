@@ -1,6 +1,7 @@
 //import { useState } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import './App.css';
+
 // bootstrap css
 import 'bootstrap/dist/css/bootstrap.min.css';
 import WeatherBox from './component/WeatherBox';
@@ -21,17 +22,27 @@ function App() {
   const [weather, setWeather] = useState(null)
   
   
-  const getCurrentLocation=()=> {
+  // const getCurrentLocation=()=> {
 
-    // 구글 에서 가지고온 코드
+  //   // 구글 에서 가지고온 코드
+  //   navigator.geolocation.getCurrentPosition((position)=>{
+  //     let lat = position.coords.latitude
+  //     let lon = position.coords.longitude
+
+  //     //lat,lon 정보를 getWeatherByCurrentLocation 함수에 넘겨준다 
+  //     getWeatherByCurrentLocation(lat,lon)
+  //   });
+    
+  // }
+
+
+
+  const getCurrentLocation = useCallback(() => {
     navigator.geolocation.getCurrentPosition((position)=>{
       let lat = position.coords.latitude
       let lon = position.coords.longitude
-
-      //lat,lon 정보를 getWeatherByCurrentLocation 함수에 넘겨준다 
-      getWeatherByCurrentLocation(lat,lon)
-    });
-  }
+      getWeatherByCurrentLocation(lat, lon)});
+  }, []); 
 
 
   // (ApI 주소) 함수실행으로 lat, lon 정보를 받는다
@@ -49,7 +60,9 @@ function App() {
   }
 
 // 앱이 실행될때 getCurrentLocation함수안에 내가 하고 싶은 만드다  실행, []어레이가 비어있으면 랜더후 바로 실행한다  
-  useEffect(()=>{ getCurrentLocation()},[])
+  useEffect(()=>{ getCurrentLocation()},[getCurrentLocation])
+  
+  
 
 
   return (
