@@ -19,4 +19,31 @@ body {
   padding: 50px;
   border-radius: 30px;
   background-color: azure;
+  margin-bottom: 20px;
+}
+
+
+.button_con {
+  height: auto;
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+
+.button {
+  margin: 5px;
+}
+.button.selected {
+
+  background-color: black;
+  color: gold;
+  border-color: gold;
+}
+
+.error-message {
+  color: rgb(255, 0, 0);
+  font-size: 25px;
+  font-weight: 700;
 }
