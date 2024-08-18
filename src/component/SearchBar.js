@@ -27,7 +27,7 @@ const SearchBar = ({ onSearch }) => {
           aria-describedby="basic-addon2"
         />
         <Button variant="success" id="button-addon2">
-          Button
+          Search
         </Button>
       </InputGroup>
 
