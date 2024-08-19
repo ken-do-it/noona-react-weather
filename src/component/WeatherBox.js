@@ -1,7 +1,11 @@
 import React from 'react'
 
 // Destructuring object의 내용 key 값을 가져오는 방식
-const WeatherBox = ({weather, error}) => {
+const WeatherBox = ({ weather, error, loading }) => {
+  // loading 상태거나 weather가 null인 경우, 아무것도 렌더링하지 않음
+  if (loading || !weather) {
+    return null;
+  }
 
   // const iconUrl = weather ? `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png` : '';
     //console.log("weather", weather)

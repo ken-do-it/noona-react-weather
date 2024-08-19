@@ -35,17 +35,32 @@ function App() {
   const handleClick = (city) => { setCity(city); setSelectedCity(city); };
   
 
+
   const getCurrentLocation = useCallback(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        getWeatherByCurrentLocation(lat, lon);
+      },
+      (error) => {
+        console.error("Failed to get current location:", error);
+        setCity('sydney');  // 위치를 가져오는 데 실패하면 Sydney로 기본 설정
+        setSelectedCity('sydney');
+      }
+    );
+  }, []);
+  // const getCurrentLocation = useCallback(() => {
 
-     // 구글 에서 가지고온 코드
-    navigator.geolocation.getCurrentPosition((position)=>{
-      let lat = position.coords.latitude
-      let lon = position.coords.longitude
+  //    // 구글 에서 가지고온 코드
+  //   navigator.geolocation.getCurrentPosition((position)=>{
+  //     let lat = position.coords.latitude
+  //     let lon = position.coords.longitude
 
 
-      //lat,lon 정보를 getWeatherByCurrentLocation 함수에 넘겨준다 
-      getWeatherByCurrentLocation(lat, lon)});
-  }, []); 
+  //     //lat,lon 정보를 getWeatherByCurrentLocation 함수에 넘겨준다 
+  //     getWeatherByCurrentLocation(lat, lon)});
+  // }, []); 
 
 
   // (ApI 주소) 함수실행으로 lat, lon 정보를 받는다
@@ -77,7 +92,7 @@ function App() {
 
 
 const getWeatherByCity = useCallback(async () => {
-  if (!city) return; // city가 설정되지 않은 경우 아무 것도 하지 않음
+ // if (!city) return; // city가 설정되지 않은 경우 아무 것도 하지 않음
   try {
     setLoading(true);
     setError(null);
